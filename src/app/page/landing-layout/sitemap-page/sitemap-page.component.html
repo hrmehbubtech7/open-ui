@@ -1,0 +1,118 @@
+<div class="form-page-layout">
+  <oth-card [header]="'Sitemap'" [defaultHeaderClass]="'underline'" [bodyTemplate]="bodyTemplate">
+    <ng-template #bodyTemplate>
+      <div class="body">
+        <div class="column">
+          <div class="title">
+            <p i18n="@@sitemap.products">Products</p>
+          </div>
+          <div *ngFor="let productLine of PRODUCT_LINES" class="link-group">
+            <div class="title">
+              <p *ngIf="productLine.name"
+                 [class]="productLine.color ? productLine.color : ''">{{ productLine.name }}</p>
+            </div>
+            <a *ngFor="let product of productLine.products; last as isLast; first as isFirst"
+               [class]="productLine.color ? productLine.color : ''"
+               (click)="redirectToProductUrl(product, productLine)"
+               class="link-item">
+              {{ product.name }}
+            </a>
+          </div>
+          <div class="title">
+            <p i18n="@@sitemap.products">Libraries</p>
+          </div>
+          <div *ngFor="let productLine of LIBRARIES" class="link-group">
+            <div class="title">
+              <p *ngIf="productLine.name"
+                 [class]="productLine.color ? productLine.color : ''">{{ productLine.name }}</p>
+            </div>
+            <a *ngFor="let product of productLine.products; last as isLast; first as isFirst"
+               [class]="productLine.color ? productLine.color : ''"
+               (click)="redirectToProductUrl(product, productLine)"
+               class="link-item">
+              {{ product.name }}
+            </a>
+          </div>
+        </div>
+        <div class="column">
+          <div class="link-inner-column">
+            <div *ngFor="let productLine of PLUGINS" class="link-group">
+              <div class="title">
+                <p *ngIf="productLine.name"
+                   [class]="productLine.color ? productLine.color : ''">{{ productLine.name }}</p>
+              </div>
+              <a *ngFor="let product of productLine.products; last as isLast; first as isFirst"
+                 [class]="productLine.color ? productLine.color : ''"
+                 (click)="redirectToProductUrl(product, productLine)"
+                 class="link-item">
+                {{ product.name }}
+              </a>
+            </div>
+            <div *ngFor="let productLine of SERVICES" class="link-group">
+              <div class="title">
+                <p *ngIf="productLine.name"
+                   [class]="productLine.color ? productLine.color : ''">{{ productLine.name }}</p>
+              </div>
+              <a *ngFor="let product of productLine.products; last as isLast; first as isFirst"
+                 [class]="productLine.color ? productLine.color : ''"
+                 (click)="redirectToProductUrl(product, productLine)"
+                 class="link-item">
+                {{ product.name }}
+              </a>
+            </div>
+            <div class="link-group">
+              <div class="title">
+                <p i18n="@@sitemap.company">Company</p>
+              </div>
+              <ng-container *ngFor="let companyPage of COMPANY_PAGES">
+                <a *ngIf="!companyPage.isExternal" [routerLink]="companyPage.url" class="link-item">
+                  {{ companyPage.name }}
+                </a>
+                <app-ext-link *ngIf="companyPage.isExternal" [href]="companyPage.url" class="link-item"
+                              [linkClass]="'align-flex-start link'">
+                <span body>
+                  {{ companyPage.name }}
+                </span>
+                </app-ext-link>
+              </ng-container>
+            </div>
+          </div>
+          <div class="link-inner-column">
+            <div class="link-group">
+              <div class="title">
+                <p i18n="@@sitemap.developers">Developers</p>
+              </div>
+              <ng-container *ngFor="let developersPage of DEVELOPERS_PAGES">
+                <a *ngIf="!developersPage.isExternal" [routerLink]="developersPage.url" class="link-item">
+                  {{ developersPage.name }}
+                </a>
+                <app-ext-link *ngIf="developersPage.isExternal" [href]="developersPage.url" class="link-item"
+                              [linkClass]="'align-flex-start link'">
+                  <span body>
+                    {{ developersPage.name }}
+                  </span>
+                </app-ext-link>
+              </ng-container>
+            </div>
+            <div class="link-group">
+              <div class="title">
+                <p i18n="@@sitemap.resources">Resources</p>
+              </div>
+              <ng-container *ngFor="let resourcesPage of RESOURCES_PAGES">
+                <a *ngIf="!resourcesPage.isExternal" [routerLink]="resourcesPage.url" class="link-item">
+                  {{ resourcesPage.name }}
+                </a>
+                <app-ext-link *ngIf="resourcesPage.isExternal" [href]="resourcesPage.url" class="link-item"
+                              [linkClass]="'link'">
+                <span body>
+                  {{ resourcesPage.name }}
+                </span>
+                </app-ext-link>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </oth-card>
+</div>

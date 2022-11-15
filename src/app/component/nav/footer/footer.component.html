@@ -1,0 +1,132 @@
+<div [class.footer-hide-shadow]="hideShadow" [class.footer-popup-padding]="popupPadding" class="footer">
+  <div class="footer-links-wrapper">
+    <div class="footer-link-column">
+      <div class="footer-link-group">
+        <p i18n="@@footer.products">Products</p>
+        <ng-container *ngFor="let productLine of PRODUCT_LINES">
+          <p *ngIf="productLine.name"
+             [class]="productLine.color ? productLine.color : ''">{{ productLine.name }}</p>
+          <a *ngFor="let product of productLine.products; last as isLast; first as isFirst"
+             [class]="productLine.color ? productLine.color : ''"
+             (click)="redirectToProductUrl(product, productLine)"
+             class="footer-link-item">
+            {{ product.name }}
+          </a>
+        </ng-container>
+      </div>
+    </div>
+    <div class="footer-link-column double">
+      <div class="footer-link-inner-column">
+        <div class="footer-link-group">
+          <p i18n="@@footer.products">Libraries</p>
+          <ng-container *ngFor="let productLine of LIBRARIES">
+            <p *ngIf="productLine.name"
+               [class]="productLine.color ? productLine.color : ''">{{ productLine.name }}</p>
+            <a *ngFor="let product of productLine.products; last as isLast; first as isFirst"
+               [class]="productLine.color ? productLine.color : ''"
+               (click)="redirectToProductUrl(product, productLine)"
+               class="footer-link-item">
+              {{ product.name }}
+            </a>
+          </ng-container>
+        </div>
+        <div *ngFor="let productLine of PLUGINS" class="footer-link-group">
+          <p *ngIf="productLine.name"
+             [class]="productLine.color ? productLine.color : ''">{{ productLine.name }}</p>
+          <a *ngFor="let product of productLine.products; last as isLast; first as isFirst"
+             [class]="productLine.color ? productLine.color : ''"
+             (click)="redirectToProductUrl(product, productLine)"
+             class="footer-link-item">
+            {{ product.name }}
+          </a>
+        </div>
+        <div *ngFor="let productLine of SERVICES" class="footer-link-group">
+          <p *ngIf="productLine.name"
+             [class]="productLine.color ? productLine.color : ''">{{ productLine.name }}</p>
+          <a *ngFor="let product of productLine.products; last as isLast; first as isFirst"
+             [class]="productLine.color ? productLine.color : ''"
+             (click)="redirectToProductUrl(product, productLine)"
+             class="footer-link-item">
+            {{ product.name }}
+          </a>
+        </div>
+      </div>
+      <div class="footer-link-inner-column">
+        <div class="footer-link-group">
+          <p i18n="@@footer.company">Company</p>
+          <ng-container *ngFor="let companyPage of COMPANY_PAGES">
+            <a *ngIf="!companyPage.isExternal" [routerLink]="companyPage.url">
+              {{ companyPage.name }}
+            </a>
+            <app-ext-link *ngIf="companyPage.isExternal"
+                          [href]="companyPage.url"
+                          [linkClass]="'align-flex-start link'">
+              <span body>
+                {{ companyPage.name }}
+              </span>
+            </app-ext-link>
+          </ng-container>
+        </div>
+        <div class="footer-link-group">
+          <p i18n="@@footer.developers">Developers</p>
+          <ng-container *ngFor="let developersPage of DEVELOPERS_PAGES">
+            <a *ngIf="!developersPage.isExternal" [routerLink]="developersPage.url">
+              {{ developersPage.name }}
+            </a>
+            <app-ext-link *ngIf="developersPage.isExternal"
+                          [href]="developersPage.url"
+                          [linkClass]="'align-flex-start link'">
+              <span body>
+                {{ developersPage.name }}
+              </span>
+            </app-ext-link>
+          </ng-container>
+        </div>
+        <div class="footer-link-group">
+          <p i18n="@@footer.resources">Resources</p>
+          <ng-container *ngFor="let resourcesPage of RESOURCES_PAGES">
+            <a *ngIf="!resourcesPage.isExternal" [routerLink]="resourcesPage.url">
+              {{ resourcesPage.name }}
+            </a>
+            <app-ext-link *ngIf="resourcesPage.isExternal"
+                          [href]="resourcesPage.url"
+                          [linkClass]="'align-flex-start link'">
+              <span body>
+                {{ resourcesPage.name }}
+              </span>
+            </app-ext-link>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-hr-row">
+    <hr/>
+  </div>
+  <div class="footer-brand-row">
+    <a class="brand" routerLink="{{URLS.root}}">
+      <img [src]="BRAND.logo.main" alt="logo" class="brand-logo" height="40" width="40"/>
+      <h2>{{ BRAND.name }} <span class="copyright">&#169; 2022</span></h2>
+    </a>
+    <div class="footer-social">
+      <app-ext-link *ngFor="let brandPage of BRAND_PAGES" [href]="brandPage.url">
+        <i [class]="'fab fa-' + brandPage.icon + ' fa-2x fa-fw'" aria-hidden="true" body></i>
+      </app-ext-link>
+    </div>
+    <div class="footer-right-element">
+      <div class="footer-language">
+        <a href="/{{ environmentCommon.languages[0].code }}{{ getCurrentRoute() }}">🇺🇸</a>
+        /
+        <a href="/{{ environmentCommon.languages[1].code }}{{ getCurrentRoute() }}">🇫🇷</a>
+      </div>
+      <p>
+        {{' v-' + appVersion + ( environment.identity !== 'production' ? '-' + environment.identity : '' )}}
+      </p>
+      <!-- Do not remove this -->
+      <a href="https://opentemplatehub.com">
+        <img [src]="poweredBy" alt="powered-by" class="brand-logo" height="40" width="177"/>
+      </a>
+
+    </div>
+  </div>
+</div>

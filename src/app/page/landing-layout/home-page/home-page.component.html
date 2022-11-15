@@ -1,0 +1,131 @@
+<div class="hero">
+  <div class="hero-left">
+    <h1>Open Template Hub</h1>
+    <p>
+      {{ BRAND.bio }}
+    </p>
+  </div>
+
+  <div class="hero-right">
+    <app-image-content-loader
+        *ngIf="!brandLogoLoaded"
+        [imageContentLoaderClass]="'brand-logo-main'"></app-image-content-loader>
+    <img
+        (load)="setBrandLogoLoaded()"
+        [src]="BRAND.heroImage.src"
+        [style]="'display:' + (!brandLogoLoaded ? 'none;' : 'block;')"
+        [alt]="BRAND.heroImage.description"
+        height="450"
+        width="800"/>
+  </div>
+</div>
+
+<div class="counters">
+  <a [href]="environmentCommon.website.github.url + '/' + environmentCommon.company.social.github" class="counter-wrapper" rel="noopener" target="_blank">
+    <app-text-content-loader *ngIf="npmCounterLoading" [size]="'30'" class="loader"></app-text-content-loader>
+    <p [hidden]="npmCounterLoading" class="counter" id="npmDownloadCounterElement"></p>
+    <p i18n="@@homePage.npmDownloads" class="description">Npm Downloads</p>
+  </a>
+  <a [href]="environmentCommon.website.github.url + '/' + environmentCommon.company.social.github" class="counter-wrapper counter-alter" rel="noopener" target="_blank">
+    <app-text-content-loader *ngIf="githubCounterLoading" [size]="'30'" class="loader"></app-text-content-loader>
+    <p [hidden]="githubCounterLoading" class="counter" id="totalStarsCounterElement">0</p>
+    <p class="description" i18n="@@homePage.totalStars">Total GitHub Stars</p>
+  </a>
+  <a [href]="environmentCommon.website.github.url + '/' + environmentCommon.company.social.github" class="counter-wrapper" rel="noopener" target="_blank">
+    <div class="ratio">
+      <p class="counter" id="openSourceRatioCounterElement">0</p>
+      <span class="counter">%</span>
+    </div>
+    <p class="description" i18n="@@homePage.openSourceRatio">Open Source Ratio</p>
+  </a>
+</div>
+
+<!-- Testimonials -->
+<oth-hero [contents]="testimonialsTitle"></oth-hero>
+<div class="cards-wrapper">
+  <app-testimonial-card
+      *ngFor="let testimonial of TESTIMONIALS"
+      [testimonial]="testimonial">
+  </app-testimonial-card>
+  <oth-button i18n-text="@@productPage.readMoreStories" text="Read More Stories" [routerLink]="URLS.customers"
+              [buttonClasses]="['lighter-contrast-border-color', 'lighter-contrast-font-color', 'transparent-button']">
+  </oth-button>
+</div>
+
+<!-- Customers -->
+<oth-hero [contents]="customersTitle"></oth-hero>
+<div class="customers-wrapper">
+  <app-business-partner-swiper [partners]="PARTNERS">
+  </app-business-partner-swiper>
+</div>
+
+<!-- Why Us -->
+<oth-hero [contents]="whyUsTitle"></oth-hero>
+<div class="cards-wrapper">
+  <app-feature-card
+      *ngFor="let feature of FEATURES"
+      [feature]="feature">
+  </app-feature-card>
+</div>
+
+<!-- Explore -->
+<oth-hero [contents]="exploreTitle"></oth-hero>
+<ng-container *ngFor="let productLine of PRODUCT_LINES">
+  <oth-hero [contents]="[{ text: productLine.name, level: 3 }]" [heroClass]="'no-padding'"></oth-hero>
+  <div class="cards-wrapper">
+    <ng-container *ngFor="let product of productLine.products">
+      <app-presentation-card
+          [class]="product.color ? product.color : ''"
+          [footerText]=getPresentationCardFooter(product.openSource)
+          [href]="URLS.product + '/' + productLine.key + '/' + product.key"
+          [imgHeight]="150"
+          [secondaryText]="product.description"
+          [src]="product.logo"
+          [title]="product.name"
+          [maintenance]="product.url === URLS.maintenance"
+          class="related-product">
+      </app-presentation-card>
+    </ng-container>
+  </div>
+</ng-container>
+
+<!-- And More -->
+<oth-hero [contents]="andMoreTitle"></oth-hero>
+<ng-container *ngFor="let productLine of LIBRARIES">
+  <oth-hero [contents]="[{ text: productLine.name, level: 3 }]" [heroClass]="'no-padding'"></oth-hero>
+  <div class="cards-wrapper">
+    <ng-container *ngFor="let product of productLine.products">
+      <app-presentation-card
+          [class]="product.color ? product.color : ''"
+          [footerText]=getPresentationCardFooter(product.openSource)
+          [href]="product.url"
+          [imgHeight]="150"
+          [secondaryText]="product.description"
+          [src]="product.logo"
+          [title]="product.name"
+          [maintenance]="product.url === URLS.maintenance"
+          class="related-product">
+      </app-presentation-card>
+    </ng-container>
+  </div>
+</ng-container>
+<ng-container *ngFor="let productLine of PLUGINS">
+  <oth-hero [contents]="[{ text: productLine.name, level: 3 }]" [heroClass]="'no-padding'"></oth-hero>
+  <div class="cards-wrapper">
+    <ng-container *ngFor="let product of productLine.products">
+      <app-presentation-card
+          [class]="product.color ? product.color : ''"
+          [footerText]=getPresentationCardFooter(product.openSource)
+          [href]="product.urlAlter"
+          [imgHeight]="150"
+          [secondaryText]="product.description"
+          [src]="product.logo"
+          [title]="product.name"
+          [maintenance]="product.url === URLS.maintenance"
+          class="related-product">
+      </app-presentation-card>
+    </ng-container>
+  </div>
+</ng-container>
+
+<app-cookies></app-cookies>

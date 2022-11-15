@@ -1,0 +1,130 @@
+@use 'node_modules/@open-template-hub/card/styles/card/card';
+
+@use '../../../../styles/util/util';
+
+.employee-card {
+  & .header {
+    margin-top: -50px;
+    text-align: center;
+    align-self: center;
+
+    & .profile-image {
+      @include util.margin-x-auto;
+      @include util.default-border-radius-image;
+
+      background-color: var(--card);
+
+      border: 2px solid var(--shadow-lighter);
+      box-shadow: 0 -6px 15px -7px var(--shadow);
+      width: 120px;
+      height: 120px;
+      padding: 5px;
+    }
+  }
+
+  & .body {
+    @include card.default-body;
+
+    justify-content: flex-start;
+
+    min-height: 265px;
+    padding: 10px 20px 20px;
+
+    & .name {
+      font: {
+        size: 21px;
+        weight: 500;
+      }
+    }
+
+    & .title {
+      color: var(--lighter-contrast);
+
+      font-size: 18px;
+    }
+
+    & .bio {
+      color: var(--lighter);
+
+      font-size: 17px;
+      margin-top: 10px;
+      text-overflow: ellipsis;
+      overflow: auto;
+    }
+  }
+
+  & .footer {
+    @include card.default-footer;
+    @include card.default-footer-border-color;
+    @include util.flex-layout-row;
+
+    & i {
+      color: var(--theme-color-lighter-6);
+
+      margin: 0 3px;
+      font-size: 27px;
+
+      &:hover {
+        color: var(--theme-color);
+      }
+    }
+  }
+}
+
+.employees-wrapper {
+  & > * {
+    margin-top: 100px;
+  }
+
+  & hr {
+    margin: 0;
+    flex-basis: 100%;
+    visibility: hidden;
+  }
+}
+
+@media only screen and (max-width: 999px) {
+  .employees-wrapper {
+    @include util.flex-layout-column;
+    @include util.flex-center-center;
+
+    justify-content: space-evenly;
+
+    width: 100vw;
+
+    margin-bottom: 20px;
+
+    & > * {
+      width: 94vw;
+    }
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .employees-wrapper {
+    @include util.flex-layout-row;
+
+    justify-content: center;
+    flex-wrap: wrap;
+
+    width: 100%;
+
+    margin-bottom: 50px;
+
+    & > * {
+      width: 400px;
+      margin: {
+        left: 15px;
+        right: 15px;
+      }
+    }
+  }
+
+  .employee-card {
+    & .body {
+      & .bio {
+        height: 160px;
+      }
+    }
+  }
+}
